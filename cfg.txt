@@ -1,0 +1,22 @@
+Device: all
+
+Preamp: -6 dB
+
+# High-pass all satellites
+Channel: L R C SL SR
+Filter: ON HP Fc 80 Hz Q 0.707
+
+# Create a virtual bass channel
+Copy: BASS=0.7*L+0.7*R+0.5*C+0.5*SL+0.5*SR
+
+# Low-pass the virtual bass
+Channel: BASS
+Filter: ON LP Fc 80 Hz Q 0.707
+
+# Mix it into the sub while keeping the movie LFE
+Copy: LFE=LFE+BASS
+
+# Subwoofer EQ
+Channel: LFE
+Filter 1: ON PK Fc 20 Hz Gain 4 dB Q 1.0
+Filter 2: ON PK Fc 45 Hz Gain 2 dB Q 1.0
